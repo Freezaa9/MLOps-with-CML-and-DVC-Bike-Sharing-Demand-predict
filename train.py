@@ -44,7 +44,7 @@ X_train, X_test, y_train, y_test = train_test_split(df, y, test_size=0.2, random
 #################################
 
 # Fit a model on the train section
-regr = RandomForestRegressor(max_depth=2, random_state=seed)
+regr = RandomForestRegressor(max_depth=5, random_state=seed)
 regr.fit(X_train, y_train)
 
 # Report training set score
@@ -91,8 +91,8 @@ res_df = pd.DataFrame(list(zip(y_jitter,y_pred)), columns = ["true","pred"])
 
 ax = sns.scatterplot(x="true", y="pred",data=res_df)
 ax.set_aspect('equal')
-ax.set_xlabel('True wine quality',fontsize = axis_fs) 
-ax.set_ylabel('Predicted wine quality', fontsize = axis_fs)#ylabel
+ax.set_xlabel('True count',fontsize = axis_fs) 
+ax.set_ylabel('Predicted count', fontsize = axis_fs)#ylabel
 ax.set_title('Residuals', fontsize = title_fs)
 
 # Make it pretty- square aspect ratio
