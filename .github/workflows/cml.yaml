@@ -15,13 +15,16 @@ jobs:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         run: |
           pip install -r requirements.txt
+
           dvc pull velo.csv
           dvc repro 
           git fetch --prune
           dvc metrics diff --show-md main > report.md
+
 
           echo "## Data Viz" >> report.md
           cml-publish feature_importance.png --md >> report.md
           cml-publish residuals.png --md >> report.md
 
           cml-send-comment report.md
+          

@@ -4,7 +4,11 @@ from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+
 import json
+
+
+
 # Set random seed
 seed = 42
 
@@ -35,7 +39,7 @@ with open("metrics.json", 'w') as outfile:
 #        outfile.write("Training variance explained: %2.1f%%\n" % train_score)
 #        outfile.write("Test variance explained: %2.1f%%\n" % test_score)
 		
-		##########################################
+##########################################
 ##### PLOT FEATURE IMPORTANCE ############
 ##########################################
 # Calculate feature importance in random forest
