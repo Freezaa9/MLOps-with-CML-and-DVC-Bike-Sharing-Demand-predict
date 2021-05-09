@@ -26,10 +26,13 @@ train_score = regr.score(X_train, y_train) * 100
 # Report test set score
 test_score = regr.score(X_test, y_test) * 100
 
+# Now print to file
+with open("metrics.json", 'w') as outfile:
+        json.dump({ "train_explained_variance": train_score, "test_explained_variance": test_score}, outfile)
 # Write scores to a file
-with open("metrics.txt", 'w') as outfile:
-        outfile.write("Training variance explained: %2.1f%%\n" % train_score)
-        outfile.write("Test variance explained: %2.1f%%\n" % test_score)
+#with open("metrics.txt", 'w') as outfile:
+#        outfile.write("Training variance explained: %2.1f%%\n" % train_score)
+#        outfile.write("Test variance explained: %2.1f%%\n" % test_score)
 		
 		##########################################
 ##### PLOT FEATURE IMPORTANCE ############

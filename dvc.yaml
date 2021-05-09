@@ -15,5 +15,5 @@ stages:
     - feature_importance.png
     - residuals.png
     metrics:
-    - metrics.txt:
+    - metrics.json:
         cache: false
