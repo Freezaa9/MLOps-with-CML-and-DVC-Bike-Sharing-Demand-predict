@@ -47,7 +47,7 @@ df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 12) ), 10
 
 df = df.drop(5631)
 df .weather = df.weather.cat.remove_unused_categories()
-
+z = np.abs(stats.zscore(df["count"]))
 df = df[(z < 3)]
 
 
