@@ -1,0 +1,19 @@
+stages:
+  prep_data:
+    cmd: python prep_data.py
+    deps:
+    - prep_data.py
+    - velo.csv
+    outs:
+    - velo_processed.csv
+  train:
+    cmd: python train.py
+    deps:
+    - train.py
+    - velo_processed.csv
+    outs:
+    - feature_importance.png
+    - residual.png
+    metrics:
+    - metrics.json:
+        cache: false
