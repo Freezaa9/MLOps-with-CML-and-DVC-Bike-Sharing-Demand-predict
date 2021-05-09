@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-import dvc.api
-import csv
 # Set random seed
 seed = 42
 
@@ -15,13 +13,7 @@ seed = 42
 ################################
 
 # Load in the data
-with dvc.api.open(
-        'velo.csv'
-        ) as fd:
-    reader = csv.reader(fd)
-df = pd.read_csv(reader)
-
-#df = pd.read_csv("velo.csv")
+df = pd.read_csv("velo.csv")
 
 # Prep
 
