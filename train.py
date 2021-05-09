@@ -4,6 +4,9 @@ from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+
+import dvc.api
+import csv
 # Set random seed
 seed = 42
 
@@ -12,7 +15,13 @@ seed = 42
 ################################
 
 # Load in the data
-df = pd.read_csv("velo.csv")
+with dvc.api.open(
+        'velo.csv'
+        ) as fd:
+    reader = csv.reader(fd)
+df = pd.read_csv(reader)
+
+#df = pd.read_csv("velo.csv")
 
 # Prep
 
@@ -57,7 +66,7 @@ with open("metrics.txt", 'w') as outfile:
         outfile.write("Training variance explained: %2.1f%%\n" % train_score)
         outfile.write("Test variance explained: %2.1f%%\n" % test_score)
 		
-		##########################################
+##########################################
 ##### PLOT FEATURE IMPORTANCE ############
 ##########################################
 # Calculate feature importance in random forest
