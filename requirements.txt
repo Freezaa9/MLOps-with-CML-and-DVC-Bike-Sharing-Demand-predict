@@ -5,4 +5,3 @@ seaborn
 scipy
 sklearn
 dvc
-csv
