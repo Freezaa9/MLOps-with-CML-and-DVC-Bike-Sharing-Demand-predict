@@ -15,6 +15,7 @@ jobs:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
         run: |
           pip install -r requirements.txt
+          dvc pull velo.csv
           dvc repro 
           git fetch --prune
           dvc metrics diff --show-md master > report.md
