@@ -13,7 +13,7 @@ stages:
     - velo_processed.csv
     outs:
     - feature_importance.png
-    - residual.png
+    - residuals.png
     metrics:
-    - metrics.json:
+    - metrics.txt:
         cache: false
