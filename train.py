@@ -5,36 +5,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
+import json
+
+
+
 # Set random seed
 seed = 42
 
-################################
-########## DATA PREP ###########
-################################
-
-# Load in the data
-df = pd.read_csv("velo.csv")
-
-# Prep
-
-df["datetime"] = pd.to_datetime(df["datetime"])
-df["season"] = pd.Categorical(df["season"], ordered=True)
-df["holiday"] = pd.Categorical(df["holiday"], ordered=False)
-df["workingday"] = pd.Categorical(df["workingday"], ordered=False)
-df["weather"] = pd.Categorical(df["weather"], ordered=False)
-
-df['dayofweek'] = df.datetime.dt.dayofweek
-df['hour'] = df.datetime.dt.hour
-df['month'] = df.datetime.dt.month
-df['year'] = df.datetime.dt.year
-
-df["dayofweek"] = pd.Categorical(df["dayofweek"], ordered=False)
-df["hour"] = pd.Categorical(df["hour"], ordered=False)
-df["month"] = pd.Categorical(df["month"], ordered=False)
-df["year"] = pd.Categorical(df["year"], ordered=False)
-
-df = df.drop(["casual", "registered", "datetime"], axis=1)
-
+df = pd.read_csv("velo_processed.csv")
 # Split into train and test sections
 y = df.pop("count")
 X_train, X_test, y_train, y_test = train_test_split(df, y, test_size=0.2, random_state=seed)
@@ -53,10 +31,13 @@ train_score = regr.score(X_train, y_train) * 100
 # Report test set score
 test_score = regr.score(X_test, y_test) * 100
 
+# Now print to file
+with open("metrics.json", 'w') as outfile:
+        json.dump({ "train_explained_variance": train_score, "test_explained_variance": test_score}, outfile)
 # Write scores to a file
-with open("metrics.txt", 'w') as outfile:
-        outfile.write("Training variance explained: %2.1f%%\n" % train_score)
-        outfile.write("Test variance explained: %2.1f%%\n" % test_score)
+#with open("metrics.txt", 'w') as outfile:
+#        outfile.write("Training variance explained: %2.1f%%\n" % train_score)
+#        outfile.write("Test variance explained: %2.1f%%\n" % test_score)
 		
 ##########################################
 ##### PLOT FEATURE IMPORTANCE ############

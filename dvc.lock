@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  prep_data:
+    cmd: python prep_data.py
+    deps:
+    - path: prep_data.py
+      md5: 1723e0fedb4d600701bff67676f49d12
+      size: 1027
+    - path: velo.csv
+      md5: 2219249bc86a065cdadae737a7e3033d
+      size: 648353
+    outs:
+    - path: velo_processed.csv
+      md5: 26c4368e311a8eacbe3d65e4a4ff7aa2
+      size: 561214
+  train:
+    cmd: python train.py
+    deps:
+    - path: train.py
+      md5: f9496439fd372556d5393b3d0a81f319
+      size: 2850
+    - path: velo_processed.csv
+      md5: 26c4368e311a8eacbe3d65e4a4ff7aa2
+      size: 561214
+    outs:
+    - path: feature_importance.png
+      md5: 184712ba03678f09e5e24747677aebd8
+      size: 45948
+    - path: metrics.json
+      md5: aa4ba6933cef3acf9c46426361bc120f
+      size: 93
+    - path: residuals.png
+      md5: d4148aabddaa18eee357a9860ed00d85
+      size: 31191
