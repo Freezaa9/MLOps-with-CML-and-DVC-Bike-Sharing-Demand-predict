@@ -18,7 +18,7 @@ jobs:
           dvc pull velo.csv
           dvc repro 
           git fetch --prune
-          dvc metrics diff --show-md master > report.md
+          dvc metrics diff --show-md main > report.md
 
           echo "## Data Viz" >> report.md
           cml-publish feature_importance.png --md >> report.md
