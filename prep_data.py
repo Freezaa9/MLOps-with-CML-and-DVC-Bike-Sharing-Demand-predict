@@ -1,5 +1,7 @@
 import pandas as pd 
 import numpy as np
+from scipy import stats
+
 # Set random seed
 seed = 42
 
@@ -29,6 +31,29 @@ df["month"] = pd.Categorical(df["month"], ordered=False)
 df["year"] = pd.Categorical(df["year"], ordered=False)
 
 df = df.drop(["casual", "registered", "datetime"], axis=1)
+
+
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 1) ), 14.58, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 2) ), 13.96, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 3) ), 15.36, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 4) ), 15.58, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 5) ), 12.29, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 6) ), 12.34, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 7) ), 11.01, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 8) ), 11.93, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 9) ), 11.57, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 10) ), 11.22, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 11) ), 13.12, df['windspeed'])
+df['windspeed'] = np.where( ( (df['windspeed'] == 0) & (df['month'] == 12) ), 10.68, df['windspeed'])
+
+
+df = df.drop(5631)
+df .weather = df.weather.cat.remove_unused_categories()
+z = np.abs(stats.zscore(df["count"]))
+df = df[(z < 3)]
+
+
+df["count"]= np.log1p(df["count"])
 
 df.to_csv("velo_processed.csv")
 
